@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<?php
+$page = "contact";
+?>
+
 <html>
     <head>
         <?php include "nav/head.php";?>
@@ -8,15 +13,27 @@
         <?php include "nav/navbar.php";?>
         
   
-        <div class="container-fluid text-center">
+        <div class="container-fluid text-center content-odsazeni">
             <div class="row content">
     
                 <div class="col-sm-10 text-left">
-                    <h1>Contacts</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <hr>
-                    <h3>Test</h3>
-                    <p>Lorem ipsum...</p>
+                    <h1>Contact</h1>
+                    
+                    <div id="map" style="width:100%;height:400px;background:yellow"></div>
+                    
+                    <script>
+                        function myMap() {
+                            var myCenter = new google.maps.LatLng(49.7265837, 13.3524429);
+                            var mapCanvas = document.getElementById("map");
+                            var mapOptions = {center: myCenter, zoom: 16};
+                            var map = new google.maps.Map(mapCanvas, mapOptions);
+                            var marker = new google.maps.Marker({position: myCenter,animation: google.maps.Animation.BOUNCE});
+                            marker.setMap(map);
+                        }
+                    </script>
+                    
+                    <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+                    
                 </div>
       
                 <?php include "nav/sidenav.php";?>
