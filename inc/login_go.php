@@ -23,23 +23,23 @@ if($action == "login")
     }
 }
 
-if($action == "logout")
-{
-    session_unset();
-    header("Location:index.php");
-}
-
 if($action == "register")
 {
     $_SESSION[$key]["login"] = $user["login"];
     header("Location:index.php");
 }
 
+$action2 = @$_GET["action"]."";
+if($action2 == "logout")
+{
+    session_unset();
+    header("Location:index.php");
+}
 
 
 function isLogged()
 {
-    $key = "conference_system";
+    $key = $GLOBALS["key"];
     
     if(isset($_SESSION[$key]["login"]))
     {

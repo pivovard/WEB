@@ -1,7 +1,3 @@
-<?php
-include_once("inc/login_go.php");
-?>
-
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -19,26 +15,27 @@ include_once("inc/login_go.php");
                 if($page == "index")
                 {
                     echo "<li class='active'><a href='index.php'>Home</a></li>";
-                    echo "<li><a href='about.php'>About</a></li>";
-                    echo "<li><a href='contact.php'>Contact</a></li>";
+                    echo "<li><a href='index.php?page=about'>About</a></li>";
+                    echo "<li><a href='index.php?page=contact'>Contact</a></li>";
                 }
-                if($page == "about")
+                else if($page == "about")
                 {
                     echo "<li><a href='index.php'>Home</a></li>";
-                    echo "<li class='active'><a href='about.php'>About</a></li>";
-                    echo "<li><a href='contact.php'>Contact</a></li>";
+                    echo "<li class='active'><a href='index.php?page=about'>About</a></li>";
+                    echo "<li><a href='index.php?page=contact'>Contact</a></li>";
                 }
-                if($page == "contact")
+                else if($page == "contact")
                 {
                     echo "<li><a href='index.php'>Home</a></li>";
-                    echo "<li><a href='about.php'>About</a></li>";
-                    echo "<li class='active'><a href='contact.php'>Contact</a></li>";
+                    echo "<li><a href='index.php?page=about'>About</a></li>";
+                    echo "<li class='active'><a href='index.php?page=contact'>Contact</a></li>";
                 }
-                if($page == "login" || $page == "register" || $page == "article")
+                //if($page == "login" || $page == "register" || $page == "article")
+                else
                 {
                     echo "<li><a href='index.php'>Home</a></li>";
-                    echo "<li><a href='about.php'>About</a></li>";
-                    echo "<li><a href='contact.php'>Contact</a></li>";
+                    echo "<li><a href='index.php?page=about'>About</a></li>";
+                    echo "<li><a href='index.php?page=contact'>Contact</a></li>";
                 }
             
             if(isLogged())
@@ -65,28 +62,25 @@ include_once("inc/login_go.php");
             if(isLogged())
             {
                 echo "<p class='navbar-text'>Logged as: <b>". $_SESSION["conference_system"]["login"]."</b></p>";
-                echo "<li><form class='form-inline' action='index.php' method='post'><input type='hidden' name='action' value='logout'/>";
-                echo "<button class='btn' type='submit'><span class='glyphicon glyphicon-log-out'></span> Logout</a>";
-                echo "</form></li>";
+                echo "<li><a href='index.php?action=logout'><span class='glyphicon glyphicon-log-out'></span> Logout</a></li>";
             }
             else
             {
-                if($page == "register")
-                {
-                    echo "<li class='active'><a href='register.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>";
-                }
-                else
-                {
-                    echo "<li><a href='register.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>";
-                }
-          
                 if($page == "login")
                 {
-                    echo "<li class='active'><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>";
+                    echo "<li class='active'><a href='index.php?page=login'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>";
                 }
                 else
                 {
-                    echo "<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>";
+                    echo "<li><a href='index.php?page=login'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>";
+                }
+                if($page == "register")
+                {
+                    echo "<li class='active'><a href='index.php?page=register'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>";
+                }
+                else
+                {
+                    echo "<li><a href='index.php?page=register'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>";
                 }
             }
           

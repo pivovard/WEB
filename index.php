@@ -1,35 +1,34 @@
-<!DOCTYPE html>
-
 <?php
-$page = "index";
+$page = @$_REQUEST["page"]."";
+if($page == ""){
+    $page = "index";
+}
+    
+include_once("inc/login_go.php");
 ?>
+
+<!DOCTYPE html>
 
 <html>
     <head>
         <?php include "nav/head.php";?>
     </head>
     <body>
-        <?php include "nav/header.php";?>
-        <?php include "nav/navbar.php";?>
         
-  
-        <div class="container-fluid text-center">
-            <div class="row content">
-    
-                <div class="col-sm-10 text-left content-odsazeni">
-                    <h1>Welcome</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <hr>
-                    <h3>Others</h3>
-                    <p>Lorem ipsum...</p>
-                </div>
-      
-                <?php include "nav/sidenav.php";?>
-            </div>
-        </div>
-
+        <?php
         
-
-        <?php include "nav/footer.php";?>
+        include "nav/header.php";
+        include "nav/navbar.php";
+        
+        if(in_array($page, array("index", "about", "contact", "login", "register"))){
+            include "cont/".$page.".inc.php";
+        }
+        else {
+            echo "<h1>404: Page not found!</h1>";
+        }
+        
+        include "nav/footer.php";
+        ?>
+        
     </body>
 </html>
