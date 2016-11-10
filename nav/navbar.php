@@ -17,36 +17,68 @@
                     echo "<li class='active'><a href='index.php'>Home</a></li>";
                     echo "<li><a href='index.php?page=about'>About</a></li>";
                     echo "<li><a href='index.php?page=contact'>Contact</a></li>";
+                    echo "<li><a href='index.php?page=articles'>Articles</a></li>";
                 }
                 else if($page == "about")
                 {
                     echo "<li><a href='index.php'>Home</a></li>";
                     echo "<li class='active'><a href='index.php?page=about'>About</a></li>";
                     echo "<li><a href='index.php?page=contact'>Contact</a></li>";
+                    echo "<li><a href='index.php?page=articles'>Articles</a></li>";
                 }
                 else if($page == "contact")
                 {
                     echo "<li><a href='index.php'>Home</a></li>";
                     echo "<li><a href='index.php?page=about'>About</a></li>";
                     echo "<li class='active'><a href='index.php?page=contact'>Contact</a></li>";
+                    echo "<li><a href='index.php?page=articles'>Articles</a></li>";
                 }
-                //if($page == "login" || $page == "register" || $page == "article")
+                else if($page == "articles")
+                {
+                    echo "<li><a href='index.php'>Home</a></li>";
+                    echo "<li><a href='index.php?page=about'>About</a></li>";
+                    echo "<li><a href='index.php?page=contact'>Contact</a></li>";
+                    echo "<li class='active'><a href='index.php?page=articles'>Articles</a></li>";
+                }
                 else
                 {
                     echo "<li><a href='index.php'>Home</a></li>";
                     echo "<li><a href='index.php?page=about'>About</a></li>";
                     echo "<li><a href='index.php?page=contact'>Contact</a></li>";
+                    echo "<li><a href='index.php?page=articles'>Articles</a></li>";
                 }
             
             if(isLogged())
             {
-                if($page == "article")
+                if($page == "admin" || $page == "author" || $page == "reviewer")
                 {
-                    echo "<li class='active'><a href='#'>Articles</a></li>";
+                    if($_SESSION[$key]["right"] == "admin")
+                    {
+                        echo "<li class='active'><a href='index.php?page=admin'>Admin</a></li>";
+                    }
+                    if($_SESSION[$key]["right"] == "author")
+                    {
+                        echo "<li class='active'><a href='index.php?page=author'>Author</a></li>";
+                    }
+                    if($_SESSION[$key]["right"] == "reviewer")
+                    {
+                        echo "<li class='active'><a href='index.php?page=reviewer'>Reviewer</a></li>";
+                    }
                 }
                 else
                 {
-                    echo "<li><a href='#'>Articles</a></li>";
+                    if($_SESSION[$key]["right"] == "admin")
+                    {
+                        echo "<li><a href='index.php?page=admin'>Admin</a></li>";
+                    }
+                    if($_SESSION[$key]["right"] == "author")
+                    {
+                        echo "<li><a href='index.php?page=author'>Author</a></li>";
+                    }
+                    if($_SESSION[$key]["right"] == "reviewer")
+                    {
+                        echo "<li><a href='index.php?page=reviewer'>Reviewer</a></li>";
+                    }
                 }
             }
           

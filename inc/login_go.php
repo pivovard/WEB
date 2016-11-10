@@ -9,28 +9,43 @@ if(!isset($_SESSION[$key]))
 }
 
 
-$action = @$_POST["action"]."";
+$action = @$_REQUEST["action"]."";
 $user = @$_POST["user"];
 
+$db = new db_login();
+$db->Connect();
+ 
 
 if($action == "login")
 {
-    if(trim($user["login"]) == "admin" && $user["pass"] == "admin")
+    $result = $db->Login($user);
+    
+    if(trim($user["login"]) == $result["login"] && $user["pass"] == $result["pass"])
     {
         $_SESSION[$key]["login"] = $user["login"];
-        $_SESSION[$key]["rights"] = "admin";
+        
+        $result = $db->GetRight($result["right"]);
+        $_SESSION[$key]["right"] = $result["right"];
+        
         header("Location:index.php");
     }
 }
 
 if($action == "register")
 {
-    $_SESSION[$key]["login"] = $user["login"];
-    header("Location:index.php");
+    $result = $db->Register($user);
+    
+    if(is_numeric($result)){
+        $_SESSION[$key]["login"] = $user["login"];
+        
+        $result = $db->GetRight($user["right"]);
+        $_SESSION[$key]["right"] = $result["right"];
+        
+        header("Location:index.php");
+    }
 }
 
-$action2 = @$_GET["action"]."";
-if($action2 == "logout")
+if($action == "logout")
 {
     session_unset();
     header("Location:index.php");
@@ -50,6 +65,8 @@ function isLogged()
         return false;
     }
 }
+
+
 
 ?>
 
