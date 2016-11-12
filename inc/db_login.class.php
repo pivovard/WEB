@@ -30,7 +30,7 @@ class db_login extends db_pdo
     public function Register($user)
     {
         $res = $this->Login($user);
-        if(!is_null($res)) return null;
+        if(is_array($res)) return null;
         
         $table_name = "users";
         $item = array("login" => $user["login"], "pass" => $user["pass"], "mail" => $user["mail"], "right" => $user["right"]);

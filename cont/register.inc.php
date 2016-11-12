@@ -24,8 +24,8 @@
                     <div class="form-group"> 
                         <div class="col-sm-offset-2 col-sm-8">
                             <div class="radio">
-                                <label class="radio-inline"><input type="radio" name="user[right]" value="1" checked="checked">User</label>
-                                <label class="radio-inline"><input type="radio" name="user[right]" value="2">Author</label>
+                                <!--<label class="radio-inline"><input type="radio" name="user[right]" value="1" checked="checked">User</label>-->
+                                <label class="radio-inline"><input type="radio" name="user[right]" value="2" checked="checked">Author</label>
                                 <label class="radio-inline"><input type="radio" name="user[right]" value="3">Reviewer</label>
                             </div>
                         </div>

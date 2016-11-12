@@ -23,6 +23,7 @@ if($action == "login")
     if(trim($user["login"]) == $result["login"] && $user["pass"] == $result["pass"])
     {
         $_SESSION[$key]["login"] = $user["login"];
+        $_SESSION[$key]["ID"] = $result["ID"];
         
         $result = $db->GetRight($result["right"]);
         $_SESSION[$key]["right"] = $result["right"];
@@ -37,6 +38,7 @@ if($action == "register")
     
     if(is_numeric($result)){
         $_SESSION[$key]["login"] = $user["login"];
+        $_SESSION[$key]["ID"] = $result;
         
         $result = $db->GetRight($user["right"]);
         $_SESSION[$key]["right"] = $result["right"];

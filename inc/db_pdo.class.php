@@ -116,6 +116,88 @@ class db_pdo
 					echo "SQL dotaz: $query";
 				}
 	}
+    
+    public function DBSelectOneOR($table_name, $select_columns_string, $where_array, $limit_string = "")
+	{
+		// PDO - MySQL
+		//printr($where_array);
+			
+		// vznik chyby v PDO
+		$mysql_pdo_error = false;
+			
+		// slozit si podminku s otaznikama
+		$where_pom = "";
+			
+		if ($where_array != null)
+			foreach ($where_array as $index => $item)
+			{
+				// pridat AND
+				if ($where_pom != "") $where_pom .= "OR ";
+	
+				$column = $item["column"];
+				$symbol = $item["symbol"];
+	
+				if (key_exists("value", $item))
+					$value_pom = "?"; 						// budu to navazovat
+				else if (key_exists("value_mysql", $item))
+					$value_pom = $item["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
+	
+	
+				$where_pom .= "`$column` $symbol  $value_pom ";
+			}
+				
+			// doplnit slovo where
+			if (trim($where_pom) != "") $where_pom = "where $where_pom";
+				
+			// 1) pripravit dotaz s dotaznikama
+			$query = "select $select_columns_string from `".$table_name."` $where_pom $limit_string;";
+			//echo "$query <br/>";
+				
+			// 2) pripravit si statement
+			$statement = $this->connection->prepare($query);
+				
+			// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+			$bind_param_number = 1;
+	
+			if ($where_array != null)
+				foreach ($where_array as $index => $item)
+				{
+					if (key_exists("value", $item))
+					{
+						$value = $item["value"];
+						//echo "navazuju value: $value jako number: $bind_param_number";
+							
+						$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
+						$bind_param_number ++;
+					}
+				}
+					
+				// 4) provest dotaz
+				$statement->execute();
+	
+				// 5) kontrola chyb
+				$errors = $statement->errorInfo();
+				//printr($errors);
+					
+				if ($errors[0] + 0 > 0)
+				{
+					// nalezena chyba
+					$mysql_pdo_error = true;
+				}
+					
+				// 6) nacist data a vratit
+				if ($mysql_pdo_error == false)
+				{
+					$row = $statement->fetch(PDO::FETCH_ASSOC);
+					return $row;
+				}
+				else
+				{
+					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					printr($errors);
+					echo "SQL dotaz: $query";
+				}
+	}
 	
 	
 	/**
@@ -144,6 +226,116 @@ class db_pdo
 		{
 				// pridat AND
 				if ($where_pom != "") $where_pom .= "AND ";
+	
+				// pokud neexistuje klic column, tak preskocit
+				if (!key_exists("column", $item))
+				{
+					echo "asi chyba v metode DBSelectAll - chybi klic column <br/>";
+					continue;
+				}
+					
+				$column = $item["column"];					// pozor na column, mohlo by projit SQL injection
+				$symbol = $item["symbol"];
+	
+				if (key_exists("value", $item))
+					$value_pom = "?"; 						// budu to navazovat
+				else if (key_exists("value_mysql", $item))
+					$value_pom = $item["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
+	
+	
+				//echo "`$column` $symbol  $value_pom ";
+				$where_pom .= "`$column` $symbol  $value_pom ";
+		}
+				
+		// doplnit slovo where
+		if (trim($where_pom) != "") $where_pom = "where $where_pom";
+				
+			
+		// pridat si order by - musim to tam dat primo, nelze to dat do prepared statements
+		$order_by_pom = "";
+		
+		if ($order_by_array != null)
+		foreach ($order_by_array as $index => $item)
+		{
+			$column = $item["column"];
+			$sort = $item["sort"];
+			
+			// carku pred
+			if (trim($order_by_pom != null))
+				$order_by_pom .= ", ";
+			
+			$order_by_pom .= "`$column` $sort";
+		}
+		
+		// doplnit slovo order by
+		if (trim($order_by_pom) != "") $order_by_pom = "order by $order_by_pom";
+			
+		
+		// 1) pripravit dotaz s dotaznikama
+		$query = "select $select_columns_string from `".$table_name."` $where_pom $order_by_pom $limit_string;";
+		//echo $query;
+				
+		// 2) pripravit si statement
+		$statement = $this->connection->prepare($query);
+				
+		// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+		$bind_param_number = 1;
+	
+		if ($where_array != null)
+		foreach ($where_array as $index => $item)
+		{
+					if (key_exists("value", $item))
+					{
+						$value = $item["value"];
+						//echo "navazuju value: $value";
+							
+						$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
+						$bind_param_number ++;
+					}
+		}
+
+		// 4) provest dotaz
+		$statement->execute();
+	
+		// 5) kontrola chyb
+		$errors = $statement->errorInfo();
+		//printr($errors);
+					
+		if ($errors[0] + 0 > 0)
+		{
+			// nalezena chyba
+			$mysql_pdo_error = true;
+		}
+					
+		// 6) nacist data a vratit
+		if ($mysql_pdo_error == false)
+		{
+					$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+					return $rows;
+		}
+		else
+		{
+					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					printr($errors);
+					echo "SQL dotaz: $query";
+		}
+	}
+    
+    public function DBSelectAllOR($table_name, $select_columns_string, $where_array, $limit_string = "", $order_by_array = array())
+	{
+		// PDO - MySQL
+	
+		// vznik chyby v PDO
+		$mysql_pdo_error = false;
+			
+		// slozit si podminku s otaznikama
+		$where_pom = "";
+			
+		if ($where_array != null)
+		foreach ($where_array as $index => $item)
+		{
+				// pridat AND
+				if ($where_pom != "") $where_pom .= "OR ";
 	
 				// pokud neexistuje klic column, tak preskocit
 				if (!key_exists("column", $item))
@@ -392,9 +584,109 @@ class db_pdo
 				}
 	}
 	
-	public function DBUpdate()
+	public function DBUpdate($table_name, $item, $where_array, $limit_string = "")
 	{
-        // TODO tuto metodu si již musíte dopsat sami
+        // MySql
+		$mysql_pdo_error = false;
+	
+		// SLOZIT TEXT STATEMENTU s otaznikama
+		$insert_columns = "";
+		$insert_values  = "";
+        $update_values = "";
+			
+		if ($item != null)
+			foreach ($item as $column => $value)
+			{
+				// pridat carky
+				if ($insert_columns != "") $insert_columns .= ", ";
+				if ($insert_columns != "") $insert_values .= ", ";
+                if ($update_values != "") $update_values .= ", ";
+	
+				$insert_columns .= "`$column`";
+				$insert_values .= "?";
+                $update_values .= "`$column`=?";
+			}
+        
+        // slozit si podminku s otaznikama
+		$where_pom = "";
+			
+		if ($where_array != null)
+			foreach ($where_array as $index => $it)
+			{
+				// pridat AND
+				if ($where_pom != "") $where_pom .= "AND ";
+	
+				$column = $it["column"];
+				$symbol = $it["symbol"];
+	
+				if (key_exists("value", $it))
+					$value_pom = "?"; 						// budu to navazovat
+				else if (key_exists("value_mysql", $it))
+					$value_pom = $it["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
+	
+				$where_pom .= "`$column` $symbol  $value_pom ";
+			}
+				
+			// doplnit slovo where
+			if (trim($where_pom) != "") $where_pom = "where $where_pom";
+				
+			// 1) pripravit dotaz s dotaznikama
+			$query = "update `$table_name` set $update_values $where_pom $limit_string;";
+        
+			// 2) pripravit si statement
+			$statement = $this->connection->prepare($query);
+				
+			// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+			$bind_param_number = 1;
+        
+			if ($item != null)
+				foreach ($item as $column => $value)
+				{
+					$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
+					$bind_param_number ++;
+				}
+        
+            // 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+			//$bind_param_number = 1;
+	
+			if ($where_array != null)
+				foreach ($where_array as $index => $item)
+				{
+					if (key_exists("value", $it))
+					{
+						$value = $it["value"];
+						//echo "navazuju value: $value jako number: $bind_param_number";
+							
+						$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
+						$bind_param_number ++;
+					}
+				}
+					
+				// 4) provest dotaz
+				$statement->execute();
+	
+				// 5) kontrola chyb
+				$errors = $statement->errorInfo();
+				//printr($errors);
+	
+				if ($errors[0] + 0 > 0)
+				{
+					// nalezena chyba
+					$mysql_pdo_error = true;
+				}
+	
+				// 6) nacist ID vlozeneho zaznamu a vratit
+				if ($mysql_pdo_error == false)
+				{
+					$item_id = $this->connection->lastInsertId();
+					return $item_id;
+				}
+				else
+				{
+					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					printr($errors);
+					echo "SQL dotaz: $query";
+				}
 	}
 	
 	
@@ -410,7 +702,115 @@ class db_pdo
 	 */
 	public function DBUpdateExpanded($table_name, $where_array, $items_expanded, $limit_string = "")
 	{
-		// TODO tuto metodu si již musíte dopsat sami
+		// MySql
+		$mysql_pdo_error = false;
+	
+		// SLOZIT TEXT STATEMENTU s otaznikama
+		$insert_columns = "";
+		$insert_values  = "";
+        $update_values = "";
+			
+		if ($item != null)
+			foreach ($item as $row)
+			{
+				// pridat carky
+				if ($insert_columns != "") $insert_columns .= ", ";
+				if ($insert_columns != "") $insert_values .= ", ";
+                if ($update_values != "") $insert_values .= ", ";
+	
+				$column = $row["column"];
+	
+				if (key_exists("value", $row))
+					$value_pom = "?"; 						// budu to navazovat
+				else if (key_exists("value_mysql", $row))
+					$value_pom = $row["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
+	
+	
+				$insert_columns .= "`$column`";
+				$insert_values .= "$value_pom";
+                $update_values .= "`$column`=$value_pom";
+			}
+        
+        // slozit si podminku s otaznikama
+		$where_pom = "";
+			
+		if ($where_array != null)
+			foreach ($where_array as $index => $it)
+			{
+				// pridat AND
+				if ($where_pom != "") $where_pom .= "AND ";
+	
+				$column = $it["column"];
+				$symbol = $it["symbol"];
+	
+				if (key_exists("value", $it))
+					$value_pom = "?"; 						// budu to navazovat
+				else if (key_exists("value_mysql", $it))
+					$value_pom = $it["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
+	
+				$where_pom .= "`$column` $symbol  $value_pom ";
+			}
+				
+			// doplnit slovo where
+			if (trim($where_pom) != "") $where_pom = "where $where_pom";
+				
+			// 1) pripravit dotaz s dotaznikama
+			$query = "update `$table_name` set $update_values $where_pom $limit_string;";
+        
+			// 2) pripravit si statement
+			$statement = $this->connection->prepare($query);
+				
+			// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+			$bind_param_number = 1;
+        
+			if ($item != null)
+				foreach ($item as $column => $value)
+				{
+					$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
+					$bind_param_number ++;
+				}
+        
+            // 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+			//$bind_param_number = 1;
+	
+			if ($where_array != null)
+				foreach ($where_array as $index => $item)
+				{
+					if (key_exists("value", $it))
+					{
+						$value = $it["value"];
+						//echo "navazuju value: $value jako number: $bind_param_number";
+							
+						$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
+						$bind_param_number ++;
+					}
+				}
+					
+				// 4) provest dotaz
+				$statement->execute();
+	
+				// 5) kontrola chyb
+				$errors = $statement->errorInfo();
+				//printr($errors);
+	
+				if ($errors[0] + 0 > 0)
+				{
+					// nalezena chyba
+					$mysql_pdo_error = true;
+				}
+	
+				// 6) nacist ID vlozeneho zaznamu a vratit
+				if ($mysql_pdo_error == false)
+				{
+					$item_id = $this->connection->lastInsertId();
+					return $item_id;
+				}
+				else
+				{
+					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					printr($errors);
+					echo "SQL dotaz: $query";
+				}
 	}
 	
 	
@@ -422,7 +822,7 @@ class db_pdo
 	 * 							[] - column = sloupec; value - int nebo string nebo value_mysql = now(); symbol
 	 * @param string $limit_string - doplnit limit string
 	 */
-	public function DBDelete($table_name, $where_array, $limit_string)
+	public function DBDelete($table_name, $where_array, $limit_string = "")
 	{
 		// PDO - MySQL
 	
@@ -437,6 +837,94 @@ class db_pdo
 			{
 				// pridat AND
 				if ($where_pom != "") $where_pom .= "AND ";
+	
+				// pokud neexistuje klic column, tak preskocit
+				if (!key_exists("column", $item))
+				{
+					echo "asi chyba v metode DBDelete - chybi klic column <br/>";
+					continue;
+				}
+					
+				$column = $item["column"];
+				$symbol = $item["symbol"];
+	
+				if (key_exists("value", $item))
+					$value_pom = "?"; 						// budu to navazovat
+				else if (key_exists("value_mysql", $item))
+					$value_pom = $item["value_mysql"]; 		// je to systemove, vlozit rovnou - POZOR na SQL injection, tady to muze projit
+	
+	
+				//echo "`$column` $symbol  $value_pom ";
+				$where_pom .= "`$column` $symbol  $value_pom ";
+			}
+				
+			// doplnit slovo where
+			if (trim($where_pom) != "") $where_pom = "where $where_pom";
+				
+			// 1) pripravit dotaz s dotaznikama
+			$query = "delete from `".$table_name."` $where_pom $limit_string;";
+			//echo $query;
+				
+			// 2) pripravit si statement
+			$statement = $this->connection->prepare($query);
+				
+			// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+			$bind_param_number = 1;
+	
+			if ($where_array != null)
+				foreach ($where_array as $index => $item)
+				{
+					if (key_exists("value", $item))
+					{
+						$value = $item["value"];
+						//echo "navazuju value: $value";
+							
+						$statement->bindValue($bind_param_number, $value);  // vzdy musim dat value, abych si nesparoval promennou (to nechci)
+						$bind_param_number ++;
+					}
+				}
+					
+				// 4) provest dotaz
+				$statement->execute();
+	
+				// 5) kontrola chyb
+				$errors = $statement->errorInfo();
+				//printr($errors);
+					
+				if ($errors[0] + 0 > 0)
+				{
+					// nalezena chyba
+					$mysql_pdo_error = true;
+				}
+					
+				// 6) nacist data a vratit
+				if ($mysql_pdo_error == false)
+				{
+					// tady nevim, co bych vracel - smazani se podarilo
+				}
+				else
+				{
+					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					printr($errors);
+					echo "SQL dotaz: $query";
+				}
+	}
+    
+    public function DBDeleteOR($table_name, $where_array, $limit_string = "")
+	{
+		// PDO - MySQL
+	
+		// vznik chyby v PDO
+		$mysql_pdo_error = false;
+			
+		// slozit si podminku s otaznikama
+		$where_pom = "";
+			
+		if ($where_array != null)
+			foreach ($where_array as $index => $item)
+			{
+				// pridat AND
+				if ($where_pom != "") $where_pom .= "OR ";
 	
 				// pokud neexistuje klic column, tak preskocit
 				if (!key_exists("column", $item))

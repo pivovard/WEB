@@ -22,8 +22,10 @@ $articles = $db->GetAllArticles();
                     
 foreach($articles as $art)
 {
+    if($art["pass"] == 0) continue;
+    
     $user = $db->GetUser($art["author"]);
-    $score = $db->GetOverallScore($art["score"]);
+    $score = $db->GetOverallScore($art["score1"], $art["score2"], $art["score3"]);
     
     echo "<tr><td>$art[title]</td>
         <td>$user[login]</td>

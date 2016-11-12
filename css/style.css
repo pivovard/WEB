@@ -54,5 +54,5 @@ form {
 
 @media screen and (min-width: 767px){
     .header-odsazeni{margin-left:250px;}
-    .content-odsazeni{margin-top: 30px;}
+    .content-odsazeni{margin-top: 30px; margin-bottom: 30px;}
 }
