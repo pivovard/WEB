@@ -31,7 +31,8 @@ include_once("inc/login_go.php");
         }
         else if(in_array($page, array("admin", "author", "reviewer")))
         {
-            if(isLogged()){
+            $user_right = $_SESSION["conference_system"]["right"];
+            if(isLogged() && $page == $user_right){
                 include "cont/".$page.".inc.php";
             }
             else{

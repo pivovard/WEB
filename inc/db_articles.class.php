@@ -175,6 +175,18 @@ class db_articles extends db_pdo
         return $result;
     }
     
+    public function GetReviewers()
+    {
+        $table_name = "users";
+        $columns = "*";
+        $where = array();
+        $where[] = array("column" => "right", "value" => "3", "symbol" => "=");
+        
+        $result = $this->DBSelectAll($table_name, $columns, $where);
+        
+        return $result;
+    }
+    
     public function GetRight($rightID)
     {
         $table_name = "rights";

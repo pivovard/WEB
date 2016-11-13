@@ -61,7 +61,7 @@ if(is_numeric($subpage))
             <label class='control-label col-sm-2' for='score2'>Score 2:</label>
             <label class='control-label'>$score[score2] </label>
             <div class='col-sm-2'>
-                <select class='form-control' id='score2' name='score[score2]' selectedvalue='3'>
+                <select class='form-control' id='score2' name='score[score2]'>
                     <option value=''></option>
                     <option value='1'>1 - Good</option>
                     <option value='2'>2 - Average</option>
