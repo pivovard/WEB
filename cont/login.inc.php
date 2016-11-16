@@ -1,7 +1,4 @@
-        <div class="container-fluid text-center">
-            <div class="row content">
-    
-                <form class="form-horizontal col-sm-10 text-left content-odsazeni" action="index.php?page=login" method="post">
+            <form class="form-horizontal" action="index.php?page=login" method="post">
                     <input type='hidden' name='action' value='login'/>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="login">Login:</label>
@@ -17,6 +14,8 @@
                     </div>
                     
                     <?php
+                    global $action;
+                    
                     if($action == "login")
                     {
                         echo "
@@ -33,7 +32,3 @@
                         </div>
                     </div>
                 </form>
-      
-                <?php include "nav/sidenav.php";?>
-            </div>
-        </div>

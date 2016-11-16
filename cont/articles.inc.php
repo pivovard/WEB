@@ -1,8 +1,4 @@
-<div class="container-fluid text-center">
-    <div class="row content">
-                
-        <div class="col-sm-10 text-left content-odsazeni">
-            <table class="table table-hover ">
+<table class="table table-hover ">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -38,8 +34,3 @@ foreach($articles as $art)
                
                 </tbody>
             </table>
-        </div>
-                
-        <?php include "nav/sidenav.php";?>
-    </div>
-</div>

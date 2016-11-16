@@ -1,7 +1,3 @@
-        <div class="container-fluid text-center">
-            <div class="row content">
-    
-                <div class="col-sm-10 text-left  content-odsazeni">
                     <h1>Contact</h1>
                     
                     <div id="map" style="width:100%;height:400px;background:yellow"></div>
@@ -18,9 +14,3 @@
                     </script>
                     
                     <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
-                    
-                </div>
-      
-                <?php include "nav/sidenav.php";?>
-            </div>
-        </div>

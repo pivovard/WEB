@@ -1,8 +1,5 @@
-<div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-10 text-left content-odsazeni">
-                
-<?php     
+<?php 
+global $key;
   
 $subpage = @$_REQUEST["subpage"]."";
 $action = @$_REQUEST["action"]."";
@@ -134,8 +131,3 @@ else
             
             
 ?>
-            
-        </div>    
-        <?php include "nav/sidenav.php";?>
-    </div>
-</div>

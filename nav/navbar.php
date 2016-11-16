@@ -12,6 +12,9 @@
       <ul class="nav navbar-nav">
           
           <?php
+          global $page;
+          global $key;
+          
                 if($page == "index")
                 {
                     echo "<li class='active'><a href='index.php'>Home</a></li>";
