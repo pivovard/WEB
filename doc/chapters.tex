@@ -15,15 +15,39 @@ Databáze musí obsahovat alespoň 3 tabulky dostatečně naplněné daty pro p�
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Použité technologie}
+\chapter{Implementace}
+
+Design webové aplikace je vytvořen pomocí frameworku \emph{Bootstrap}, \emph{CSS} (definován ve složce /css) a šablony \emph{Twig}.  Funkční část aplikace pak v \emph{PHP}.
+
+Aplikace dodržuje MVC architekturu. Obsah jednotlivých stránek je ve složce /cont a /nav (navigace na stránkách). Funkční čast aplikace, tj. přihlašování, registrace, práce s články a práce s databází, v .php soborech ve složce /inc. Funkční část aplikace je znázorněna na diagramu na obrázku \ref{uml}. Zobrazení správného obsahu za pomoci Twigu zajišťuje soubor index.php v kořenovém adresáři. Přesměrování URL adresy na index.php je zajištěno souborem .htaccess.
+
+Práce s databází je zajištěna pomocí rozhraní \emph{PDO}. Dotazy do databáze jsou skládány ve třídě /inc/db\_pdo.class.php. Tu pak implementují třídy /inc/db\_login.class.php a /inc/db\_articles.class.php, kde se tvoří konkrétní dotazy.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/UML.eps}
+	\caption{Diagram funkční části aplikace}
+  \label{uml}
+\end{figure}
 
 
-\chapter{Adresářová struktura}
+Na stránce \emph{Contact} je použitím javascriptu vložena Google mapa.
 
-\chapter{Architektura aplikace}
+Nahrané soubory jsou uploadovány do složky /pdf na server. Lze nahrát pouze soubory formátu .pdf nebo .txt.
 
 
+\section{Databáze}
 
+Databáze má 4 tabulky (viz EER diagram na obrázku \ref{eer}).
+
+V tabulce \emph{users} je seznam registrovaných uživatelů. Tabulka \emph{rights} je seznam uživatelských práv. Tabulka \emph{articles} obsahuje všechny vložené články s ID uživatele, který je vložil, URL odkazu na soubor na serveru, ID na jednotlivá hodnocení od recenzentů (každý článek má tři hodnocení) a příznakem zda byl článek schválen. V tabulce \emph{score} jsou jednotlivá hodnocení přiřazená recenzentům (každé hodnocení má tři hodnoty).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/web_sp_EER.eps}
+	\caption{EER diagram databáze}
+  \label{eer}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,3 +56,6 @@ Databáze musí obsahovat alespoň 3 tabulky dostatečně naplněné daty pro p�
 
 \chapter{Závěr}
 
+Zadání samostatné práce bylo splněno. Vytvořený návrh konferenčního systému je s menšími úpravami použitelný pro reálný konferenční systém.
+
+Celý projekt je na GitHubu: \url{https://github.com/pivovard/web}.
