@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2016.3.14)  20 NOV 2016 14:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=latex 2016.5.6)  28 NOV 2016 14:08
 entering extended mode
 **./web_doc.tex
 (web_doc.tex
@@ -54,8 +54,7 @@ Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
 File: t1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
@@ -214,8 +213,7 @@ File: t1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
 )
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
 File: ot1enc.dfu 2015/09/07 v1.1p UTF-8 support for inputenc
    defining Unicode char U+00A0 (decimal 160)
    defining Unicode char U+00A1 (decimal 161)
@@ -290,7 +288,6 @@ Now handling font encoding IL2 ...
 )
 LaTeX Font Info:    Try loading font information for IL2+cmr on input line 105.
 
-
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\cslatex\base\il2cmr.fd"
 File: il2cmr.fd 1997/02/06 CSLaTeX font definitions
 ))
@@ -332,7 +329,6 @@ Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
 
-
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
 Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
@@ -352,15 +348,13 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode is ignored in DVI mode.
 Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
-Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
-)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO)
 Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
 Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
 )
@@ -446,12 +440,10 @@ File: pdfmark.def 2012/11/06 v6.83m Hyperref definitions for pdfmark specials
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-82.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 282.
 )
 \Hy@SectionHShift=\skip43
-))
-(web_doc.aux (chapters.aux))
+)) (web_doc.aux (chapters.aux))
 \openout1 = `web_doc.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
@@ -484,8 +476,7 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 46.
 LaTeX Info: Redefining \pageref on input line 46.
 LaTeX Info: Redefining \nameref on input line 46.
-
-(web_doc.out) (web_doc.out)
+ (web_doc.out) (web_doc.out)
 \@outlinefile=\write3
 \openout3 = `web_doc.out'.
 
@@ -496,15 +487,15 @@ LaTeX Font Warning: Font shape `IL2/cmr/m/n' in size <22> not available
 
 
 LaTeX Font Warning: Font shape `IL2/cmr/bx/n' in size <28> not available
-(Font)              size <24.88> substituted on input line 65.
+(Font)              size <24.88> substituted on input line 66.
 
 
 LaTeX Font Warning: Font shape `IL2/cmr/bx/n' in size <36> not available
-(Font)              size <24.88> substituted on input line 71.
+(Font)              size <24.88> substituted on input line 72.
 
 
 LaTeX Font Warning: Font shape `IL2/cmr/m/n' in size <16> not available
-(Font)              size <17.28> substituted on input line 82.
+(Font)              size <17.28> substituted on input line 83.
 
 [1
 
@@ -544,18 +535,16 @@ Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                removing `\textasciicaron' on input line 57.
 
 LaTeX Font Info:    Try loading font information for IL2+cmtt on input line 61.
-
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\cslatex\base\il2cmtt.fd"
 File: il2cmtt.fd 1997/08/20 CSLaTeX font definitions
 )) [5
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 104.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 104.
-
-(web_doc.aux (chapters.aux))
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 104.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 104.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 105.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 105.
+ (web_doc.aux (chapters.aux))
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 105.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 105.
 Package rerunfilecheck Info: File `web_doc.out' has not changed.
 (rerunfilecheck)             Checksum: 1D8799A1A63B7B1C8873E3DC6001DC97;198.
 
@@ -563,15 +552,15 @@ Package rerunfilecheck Info: File `web_doc.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 11.12pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 104.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 105.
  ) 
 Here is how much of TeX's memory you used:
  5714 strings out of 493635
- 81314 string characters out of 3141340
+ 81314 string characters out of 3141350
  170311 words of memory out of 3000000
  9043 multiletter control sequences out of 15000+200000
  11273 words of font info for 32 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  29i,5n,30p,563b,384s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on web_doc.dvi (6 pages, 13216 bytes).
+Output written on web_doc.dvi (6 pages, 13248 bytes).

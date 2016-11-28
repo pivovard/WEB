@@ -38,14 +38,14 @@ Nahrané soubory jsou uploadovány do složky /pdf na server. Lze nahrát pouze 
 
 \section{Databáze}
 
-Databáze má 4 tabulky (viz EER diagram na obrázku \ref{eer}).
+Databáze má 4 tabulky (viz ERA diagram na obrázku \ref{eer}).
 
 V tabulce \emph{users} je seznam registrovaných uživatelů. Tabulka \emph{rights} je seznam uživatelských práv. Tabulka \emph{articles} obsahuje všechny vložené články s ID uživatele, který je vložil, URL odkazu na soubor na serveru, ID na jednotlivá hodnocení od recenzentů (každý článek má tři hodnocení) a příznakem zda byl článek schválen. V tabulce \emph{score} jsou jednotlivá hodnocení přiřazená recenzentům (každé hodnocení má tři hodnoty).
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{img/web_sp_EER.eps}
-	\caption{EER diagram databáze}
+	\caption{ERA diagram databáze}
   \label{eer}
 \end{figure}
 
